@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
 
 function App() {
+  const [translatedText, setTranslatedText] = useState('');
+
+  useEffect(() => {
+    fetch('https://translation.googleapis.com/language/translate/v2', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        q: 'Hello world',
+        target: 'ko',
+        key: '',
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        console.error('Error:', data.error.message);
+      } else {
+        setTranslatedText(data.data.translations[0].translatedText);
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Translation Test</h1>
+      <p>{translatedText}</p>
     </div>
   );
 }
