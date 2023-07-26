@@ -1,63 +1,43 @@
 /* App.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f0f0f0;
+  @apply font-sans m-0 p-0 bg-gray-200;
 }
 
 .App {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  @apply max-w-md mx-auto p-5 bg-white rounded-lg shadow-md;
 }
 
 h1 {
-  color: #007bff;
-  text-align: center;
+  @apply text-blue-600 text-center;
 }
 
 .input-container {
-  background-color: #e7f1ff;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  @apply bg-blue-100 p-2 rounded mb-4;
   /* Fix width and margin */
-  width: calc(100% - 20px); /* Adjust the value as needed */
-  margin-left: 10px;
-  margin-right: 10px;
-  box-sizing: border-box;
+  @apply w-full mx-2 box-border;
 }
 
 input {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  outline: none;
-  font-size: 16px;
-  border-radius: 5px;
-  background-color: #dfe7ff;
-  box-sizing: border-box;
+  @apply w-full py-2 px-3 border-none outline-none text-lg rounded bg-blue-200 box-border;
 }
 
 .translated-text {
-  font-size: 18px;
-  line-height: 1.6;
+  @apply text-lg leading-loose;
 }
 
 /* Mobile responsiveness */
 @media screen and (max-width: 600px) {
   .App {
-    padding: 10px;
+    @apply p-2;
   }
 }
 
 @media screen and (max-width: 400px) {
   .App {
-    padding: 5px;
+    @apply p-1;
   }
 }
