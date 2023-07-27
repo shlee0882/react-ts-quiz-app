@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 개요
 
-## Available Scripts
+ReactJs, TypeScript, Tailwindcss를 사용해 만든 프로젝트이며<br>
+영어로 구성된 퀴즈 API를 Google Cloud Translation API를 사용해<br>
+한글 번역 후 문제 생성 제공하는 <br> 
+[랜덤 퀴즈 토이 프로젝트] 입니다.
+<br>
+<br>
 
-In the project directory, you can run:
+## 사용 방법
 
-### `npm start`
+- 랜덤한 문제가 노출됩니다.
+- 문제는 3문제로 노출됩니다.
+- 최초 오답 선택 시 정답이 노출됩니다.
+- 최초 정답 선택 시 점수가 오릅니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 기능 요약
 
-### `npm test`
+- 문제 제공 기능
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    - 문제 데이터는 [퀴즈 오픈 API](https://opentdb.com/api.php?amount=3&difficulty=easy&type=multiple)를 사용해 다양하게 가져올 수 있습니다. 
+    - 영문 데이터를 [Google Cloud Translation API](https://cloud.google.com/translate/docs/reference/rest)를 사용해 한글로 번역합니다. 
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 사용 기술
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Reactjs, Typescript, Tailwindcss
+- Opentdb API(퀴즈 API)
+- Google Cloud Translation API
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `npm run eject`
+## 배포된 Deploy URL
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+https://shlee0882.github.io/react-ts-quiz-app/
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 실행 하기
+```
+npm install
+npm run start
+```
+<br>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 레퍼런스
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- https://opentdb.com/
+- https://cloud.google.com/translate/docs/reference/rest
+- https://tailwindcss.com/
