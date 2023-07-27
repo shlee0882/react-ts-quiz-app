@@ -25,6 +25,7 @@ ReactJs, TypeScript, Tailwindcss를 사용해 만든 프로젝트이며<br>
     - 문제 데이터는 [퀴즈 오픈 API](https://opentdb.com/api.php?amount=3&difficulty=easy&type=multiple)를 사용해 다양하게 가져올 수 있습니다. 
     - 영문 데이터를 [Google Cloud Translation API](https://cloud.google.com/translate/docs/reference/rest)를 사용해 한글로 번역합니다. 
 
+<br>
 
 ## 사용 기술
 
