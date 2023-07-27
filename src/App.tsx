@@ -131,7 +131,8 @@ function App() {
   }
   
   async function getQuizData() {
-    let url = `https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple`
+    let problemCnt = '3'
+    let url = `https://opentdb.com/api.php?amount=${problemCnt}&difficulty=easy&type=multiple`
     let response = await fetch(url, {
       method: 'GET',
     }); 
@@ -179,9 +180,9 @@ function App() {
   }
 
   return (
-    <div className="App bg-blue-50 min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-4xl mb-4 font-bold">Quiz App</h1>
-      <h2 className="text-2xl mb-8">Score: {score}</h2>
+    <div className="App bg-blue-50 min-h-screen flex flex-col items-center justify-center font-nanum-gothic font-bold">
+      <h1 className="text-4xl mb-4 font-bold">랜덤퀴즈 앱</h1>
+      <h2 className="text-2xl mb-8">점수 : {score}</h2>
       {translateQuizzArr.length > 0 && currentQuizIndex <= translateQuizzArr.length - 1 ? (
         <div className="w-full bg-white p-8 rounded shadow flex flex-col">
           <h2 className="text-xl mb-4">{translateQuizzArr[currentQuizIndex].question}</h2>
@@ -205,21 +206,21 @@ function App() {
 
           {isCorrect && (
             <div className="bg-green-500 text-white p-4 mt-4 rounded">
-              Correct answer! Moving to next question...
+              정답입니다. 다음 문제로 이동 중...
             </div>
           )}
             
           {showAnswer && !isCorrect && (
             <div className="text-red-500 p-4 mt-4 rounded">
-              The correct answer is: {translateQuizzArr[currentQuizIndex].correct_answer}
+              정답은 : {translateQuizzArr[currentQuizIndex].correct_answer} 입니다.
             </div>
           )}
         </div>
       ) : (
         <>
-        <h2 className="text-2xl">Quiz finished! Final score is {score}.</h2>
+        <h2 className="text-2xl">퀴즈가 끝났습니다. <br/> 최종 점수는 {score} 점 입니다.</h2>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={handleSolveMore}>
-          Solve More Questions
+          퀴즈 더 풀기
         </button>
       </>
       )}
