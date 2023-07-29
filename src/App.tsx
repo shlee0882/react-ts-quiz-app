@@ -1,6 +1,13 @@
 import React, { useLayoutEffect, useState } from 'react';
 import './App.css'; 
 import { Quiz } from './quiz.interface';
+import { ENG_QUIZ_CATE9, KOR_QUIZ_CATE9, ENG_QUIZ_CATE10, KOR_QUIZ_CATE10, ENG_QUIZ_CATE11, KOR_QUIZ_CATE11, ENG_QUIZ_CATE12, KOR_QUIZ_CATE12
+  ,ENG_QUIZ_CATE13, KOR_QUIZ_CATE13, ENG_QUIZ_CATE14, KOR_QUIZ_CATE14, ENG_QUIZ_CATE15, KOR_QUIZ_CATE15, ENG_QUIZ_CATE16, KOR_QUIZ_CATE16
+  ,ENG_QUIZ_CATE17, KOR_QUIZ_CATE17, ENG_QUIZ_CATE18, KOR_QUIZ_CATE18, ENG_QUIZ_CATE19, KOR_QUIZ_CATE19, ENG_QUIZ_CATE20, KOR_QUIZ_CATE20
+  ,ENG_QUIZ_CATE21, KOR_QUIZ_CATE21, ENG_QUIZ_CATE22, KOR_QUIZ_CATE22, ENG_QUIZ_CATE23, KOR_QUIZ_CATE23, ENG_QUIZ_CATE24, KOR_QUIZ_CATE24
+  ,ENG_QUIZ_CATE25, KOR_QUIZ_CATE25, ENG_QUIZ_CATE26, KOR_QUIZ_CATE26, ENG_QUIZ_CATE27, KOR_QUIZ_CATE27, ENG_QUIZ_CATE28, KOR_QUIZ_CATE28
+  ,ENG_QUIZ_CATE29, KOR_QUIZ_CATE29, ENG_QUIZ_CATE30, KOR_QUIZ_CATE30, ENG_QUIZ_CATE31, KOR_QUIZ_CATE31, ENG_QUIZ_CATE32, KOR_QUIZ_CATE32
+} from './quizData'; 
 
 function App() {
   const [translateQuizzArr, setTranslateQuizzArr] = useState<Quiz[]>([]);
@@ -13,80 +20,140 @@ function App() {
   const [quizTrigger, setQuizTrigger] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { REACT_APP_GOOGLE_TRANSLATE_API_KEY } = process.env;
-  const apiKey: string | undefined = REACT_APP_GOOGLE_TRANSLATE_API_KEY;
-  if (!apiKey) {
-    throw new Error('Missing Google API Key');
-  }
-  let multiplePreTranslate = '';
+  // let multiplePreTranslate = '';
+
+  // let staticReqQuizArr = 
+  // [
+  //   "https://opentdb.com/api.php?amount=40&category=9&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=10&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=11&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=12&type=multiple",
+  //   "https://opentdb.com/api.php?amount=20&category=13&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=14&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=15&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=16&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=17&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=18&type=multiple",
+  //   "https://opentdb.com/api.php?amount=30&category=19&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=20&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=21&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=22&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=23&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=24&type=multiple",
+  //   "https://opentdb.com/api.php?amount=20&category=25&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=26&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=27&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=28&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=29&type=multiple",
+  //   "https://opentdb.com/api.php?amount=20&category=30&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=31&type=multiple",
+  //   "https://opentdb.com/api.php?amount=40&category=32&type=multiple"
+  // ]
+
 
   useLayoutEffect(() => {
-    getQuizData().then(response => {
-
-      console.log(response.data);
-      let quizzes: Quiz[] = response.results;
-      let quizArr: Quiz[] = [];
-  
-      const translatePromises = translate(quizzes)
-        .then(response => {
-          let translatedData = response?.data?.translations[0]?.translatedText;
-          let multipleArrPreTranslate = translatedData.split('\n\n');
-          let multipleEngPreTranslate = multiplePreTranslate.split('\n\n');
-          for(let i=0; i < multipleArrPreTranslate.length; i++){
-            let data = multipleArrPreTranslate[i];
-            let engData = multipleEngPreTranslate[i];
-
-            let arrPreTranslate = data.split('\n');
-            let engArrPreTranslate = engData.split('\n');
-            let engRightAnswerStr = dataStrReplace(engArrPreTranslate[3]);
-            let engWrongAnswerStr1 = dataStrReplace(engArrPreTranslate[4]);
-            let engWrongAnswerStr2 = dataStrReplace(engArrPreTranslate[5]);
-            let engWrongAnswerStr3 = dataStrReplace(engArrPreTranslate[6]);
-
-            let incorrectStrArr: string[] = [];
-            let questionStr = `${dataStrReplace(arrPreTranslate[2])}`;
-            let rightAnswerStr = `${dataStrReplace(arrPreTranslate[3])} ( ${engRightAnswerStr} )`; 
-            let wrongAnswerStr1 = `${dataStrReplace(arrPreTranslate[4])} ( ${engWrongAnswerStr1} )`;
-            let wrongAnswerStr2 = `${dataStrReplace(arrPreTranslate[5])} ( ${engWrongAnswerStr2} )`;
-            let wrongAnswerStr3 = `${dataStrReplace(arrPreTranslate[6])} ( ${engWrongAnswerStr3} )`;
-
-            incorrectStrArr.push(wrongAnswerStr1, wrongAnswerStr2, wrongAnswerStr3);
-            let allAnswersStrArr: string[] = [];
-            allAnswersStrArr.push(...incorrectStrArr, rightAnswerStr);
-            shuffleArray(allAnswersStrArr);
-  
-            let translateQuizObj: Quiz = {
-              category: arrPreTranslate[0],
-              difficulty: arrPreTranslate[1], 
-              question: questionStr,
-              correct_answer: rightAnswerStr,
-              incorrect_answers: incorrectStrArr,
-              all_answers: allAnswersStrArr,
-              type: ''
-            };
-            quizArr.push(translateQuizObj);
-          }
-        })
-        .catch(reason => {
-          console.log(reason.message);
-          return {
-            category: '',
-            difficulty: '',
-            question: '',
-            correct_answer: '',
-            incorrect_answers: [''],
-            type: ''
-          } as Quiz;
-        });
-  
-      Promise.all([translatePromises]).then(() => {
-        setTranslateQuizzArr(quizArr);
-        setIsLoading(false);
-      });
-  
-    });
+    getStaticQuizData();
+    // 퀴즈 API 데이터 변환 작업은 fetchAllQuizzes 사용
+    // fetchAllQuizzes().then(response => {
+    //   translate(response);
+    // });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quizTrigger]);
+
+
+  const getStaticQuizData = () => {
+    let quizArr: Quiz[] = [];
+    let quizCategory = [
+        {"eng": ENG_QUIZ_CATE9, "kor" : KOR_QUIZ_CATE9}
+      , {"eng": ENG_QUIZ_CATE10, "kor": KOR_QUIZ_CATE10}
+      , {"eng": ENG_QUIZ_CATE11, "kor": KOR_QUIZ_CATE11}      
+      , {"eng": ENG_QUIZ_CATE12, "kor": KOR_QUIZ_CATE12}      
+      , {"eng": ENG_QUIZ_CATE13, "kor": KOR_QUIZ_CATE13}      
+      , {"eng": ENG_QUIZ_CATE14, "kor": KOR_QUIZ_CATE14}      
+      , {"eng": ENG_QUIZ_CATE15, "kor": KOR_QUIZ_CATE15}      
+      , {"eng": ENG_QUIZ_CATE16, "kor": KOR_QUIZ_CATE16}      
+      , {"eng": ENG_QUIZ_CATE17, "kor": KOR_QUIZ_CATE17}      
+      , {"eng": ENG_QUIZ_CATE18, "kor": KOR_QUIZ_CATE18}      
+      , {"eng": ENG_QUIZ_CATE19, "kor": KOR_QUIZ_CATE19}      
+      , {"eng": ENG_QUIZ_CATE20, "kor": KOR_QUIZ_CATE20}      
+      , {"eng": ENG_QUIZ_CATE21, "kor": KOR_QUIZ_CATE21}      
+      , {"eng": ENG_QUIZ_CATE22, "kor": KOR_QUIZ_CATE22}      
+      , {"eng": ENG_QUIZ_CATE23, "kor": KOR_QUIZ_CATE23}      
+      , {"eng": ENG_QUIZ_CATE24, "kor": KOR_QUIZ_CATE24}      
+      , {"eng": ENG_QUIZ_CATE25, "kor": KOR_QUIZ_CATE25}      
+      , {"eng": ENG_QUIZ_CATE26, "kor": KOR_QUIZ_CATE26}      
+      , {"eng": ENG_QUIZ_CATE27, "kor": KOR_QUIZ_CATE27}      
+      , {"eng": ENG_QUIZ_CATE28, "kor": KOR_QUIZ_CATE28}      
+      , {"eng": ENG_QUIZ_CATE29, "kor": KOR_QUIZ_CATE29}      
+      , {"eng": ENG_QUIZ_CATE30, "kor": KOR_QUIZ_CATE30}      
+      , {"eng": ENG_QUIZ_CATE31, "kor": KOR_QUIZ_CATE31}      
+      , {"eng": ENG_QUIZ_CATE32, "kor": KOR_QUIZ_CATE32}       
+    ]
+
+    shuffleArray(quizCategory);
+
+    for(let data=0; data < quizCategory.length; data++){
+      let quizCate = quizCategory[data];
+      let multipleArrPreTranslate = quizCate.kor.split('\n\n');
+      let multipleEngPreTranslate = quizCate.eng.split('\n\n');
+
+      for(let i=0; i < multipleArrPreTranslate.length; i++){
+        let data = multipleArrPreTranslate[i];
+        let engData = multipleEngPreTranslate[i];
+  
+        let arrPreTranslate = data.split('\n');
+        let engArrPreTranslate = engData.split('\n');
+        let engRightAnswerStr = dataStrReplace(engArrPreTranslate[3]);
+        let engWrongAnswerStr1 = dataStrReplace(engArrPreTranslate[4]);
+        let engWrongAnswerStr2 = dataStrReplace(engArrPreTranslate[5]);
+        let engWrongAnswerStr3 = dataStrReplace(engArrPreTranslate[6]);
+  
+        let incorrectStrArr: string[] = [];
+        let questionStr = `${dataStrReplace(arrPreTranslate[2])}`;
+        let rightAnswerStr = `${dataStrReplace(arrPreTranslate[3])} ( ${engRightAnswerStr} )`; 
+        let wrongAnswerStr1 = `${dataStrReplace(arrPreTranslate[4])} ( ${engWrongAnswerStr1} )`;
+        let wrongAnswerStr2 = `${dataStrReplace(arrPreTranslate[5])} ( ${engWrongAnswerStr2} )`;
+        let wrongAnswerStr3 = `${dataStrReplace(arrPreTranslate[6])} ( ${engWrongAnswerStr3} )`;
+  
+        incorrectStrArr.push(wrongAnswerStr1, wrongAnswerStr2, wrongAnswerStr3);
+        let allAnswersStrArr: string[] = [];
+        allAnswersStrArr.push(...incorrectStrArr, rightAnswerStr);
+        shuffleArray(allAnswersStrArr);
+  
+        let translateQuizObj: Quiz = {
+          category: arrPreTranslate[0],
+          difficulty: arrPreTranslate[1], 
+          question: questionStr,
+          correct_answer: rightAnswerStr,
+          incorrect_answers: incorrectStrArr,
+          all_answers: allAnswersStrArr,
+          type: ''
+        };
+        quizArr.push(translateQuizObj);
+      }
+    }
+    setTranslateQuizzArr(quizArr);
+    setIsLoading(false);
+  }
+
+  // const getQuizWithDelay = async(i:number) => {
+  //   return new Promise((resolve) => {
+  //       setTimeout(async () => {
+  //           const response = await getQuizData(i);
+  //           resolve(response);
+  //       }, i * 100);  
+  //   });
+  // }
+
+  // const fetchAllQuizzes = async() => {
+  //     const allQuizzes = [];
+  //     for(let i = 0; i < staticReqQuizArr.length; i++){
+  //         const response:any = await getQuizWithDelay(i);
+  //         let quizzes: Quiz[] = response.results;
+  //         allQuizzes.push(...response.results);
+  //     }
+  //     return allQuizzes;
+  // }
   
   const handleSolveMore = () => {
     let quizArr: Quiz[] = [];
@@ -96,6 +163,10 @@ function App() {
     setScore(0);
     setCurrentQuizIndex(0);
   };
+
+  const handleChangeSubject = () => {
+    getStaticQuizData();
+  }
   
   const handleAnswer = (answer: string) => {
     setSelectedAnswer(answer);
@@ -119,71 +190,54 @@ function App() {
       setHasIncorrectAttempt(true);
     }
   };
-  
 
-
-  function dataStrReplace(arrPreTranslate: any) {
+  const dataStrReplace = (arrPreTranslate: any) => {
     return arrPreTranslate.replace(/&quot;/g, '"')
                      .replace(/&#039;/g, "'")
                      .replace(/&ldquo;/g, '"')
                      .replace(/&rdquo;/g, '"');
   }
 
-  function shuffleArray(array: any[]) {
+  const shuffleArray = (array: any[]) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
   
-  async function getQuizData() {
-    let problemCnt = '3'
-    let url = `https://opentdb.com/api.php?amount=${problemCnt}&difficulty=easy&type=multiple`
-    let response = await fetch(url, {
-      method: 'GET',
-    }); 
-    let data = await response.json()
-    return data;
-  }
+  // const getQuizData = async (category:number) => {
+  //   let url = staticReqQuizArr[category];
+  //   let response = await fetch(url, {
+  //     method: 'GET',
+  //   }); 
+  //   let data = await response.json()
+  //   return data;
+  // }
 
-  async function translate(quizzes: Quiz[]) {
-    let url = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`
+  // const translate = async (quizzes: Quiz[]) => {
+  //   // let url = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`
 
-    multiplePreTranslate = '';
-    let preTranslate = '';
+  //   multiplePreTranslate = '';
+  //   let preTranslate = '';
 
-    for(let quizObj of quizzes){
-      let icaListStr = '';
-      for (let ica of quizObj.incorrect_answers) {
-        if(ica === quizObj.incorrect_answers[quizObj.incorrect_answers.length - 1]) {
-          icaListStr += `${ica}`;
-        }else{
-          icaListStr += `${ica}\n`;
-        }
-      }
-      if(quizObj === quizzes[quizzes.length - 1]) {
-        preTranslate += `${quizObj.category}\n${quizObj.difficulty}\n${quizObj.question}\n${quizObj.correct_answer}\n${icaListStr}`;      
-      }else{
-        preTranslate += `${quizObj.category}\n${quizObj.difficulty}\n${quizObj.question}\n${quizObj.correct_answer}\n${icaListStr}\n\n`;      
-      }
-    }
-
-    multiplePreTranslate = dataStrReplace(preTranslate);
-
-    let response = await fetch(url, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-       },
-       body: JSON.stringify({
-         target: 'ko',
-         format: "text",
-         q: multiplePreTranslate
-       }),
-    }); 
-    let data = await response.json()
-    return data;
-  }
+  //   for(let quizObj of quizzes){
+  //     let icaListStr = '';
+  //     for (let ica of quizObj.incorrect_answers) {
+  //       if(ica === quizObj.incorrect_answers[quizObj.incorrect_answers.length - 1]) {
+  //         icaListStr += `${ica}`;
+  //       }else{
+  //         icaListStr += `${ica}\n`;
+  //       }
+  //     }
+  //     if(quizObj === quizzes[quizzes.length - 1]) {
+  //       preTranslate += `${quizObj.category}\n${quizObj.difficulty}\n${quizObj.question}\n${quizObj.correct_answer}\n${icaListStr}`;      
+  //     }else{
+  //       preTranslate += `${quizObj.category}\n${quizObj.difficulty}\n${quizObj.question}\n${quizObj.correct_answer}\n${icaListStr}\n\n`;      
+  //     }
+  //   }
+  //   multiplePreTranslate = dataStrReplace(preTranslate);
+  //   return multiplePreTranslate;
+  // }
 
   return (
     <div className="App bg-blue-50 min-h-screen flex flex-col items-center justify-center font-nanum-gothic font-bold">
@@ -192,12 +246,26 @@ function App() {
         isLoading ? 
         <div>Loading...</div> : 
         (
-          <h2 className="text-2xl mb-8">점수 : {score}</h2>
+          // <h2 className="text-2xl mb-8">점수 : {score}</h2>
+          <div className="flex justify-center space-x-4 mb-4">
+            <h2 className="bg-indigo-400 text-white font-bold py-2 px-4 rounded">
+              점수 : {score}
+            </h2>
+            <button className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded" onClick={handleChangeSubject}>
+              퀴즈 주제 바꾸기
+            </button>
+          </div>
         )
       }
+
+
       {translateQuizzArr.length > 0 && currentQuizIndex <= translateQuizzArr.length - 1 ? (
         <div className="w-full bg-white p-8 rounded shadow flex flex-col">
-          <h2 className="text-xl mb-4">{translateQuizzArr[currentQuizIndex].question}</h2>
+          <h3 className="text-base mb-4 text-neutral-500">주제 : {translateQuizzArr[currentQuizIndex].category}</h3>
+          <h2 className="text-xl mb-4 text-zinc-700 font-extrabold">{translateQuizzArr[currentQuizIndex].question}</h2>
+          <h3 className={`text-base mb-4 ${translateQuizzArr[currentQuizIndex].difficulty === '어려움' ? 'text-red-400' : translateQuizzArr[currentQuizIndex].difficulty === '중간' ? 'text-yellow-500' : 'text-green-500'}`}>
+            난의도 : {translateQuizzArr[currentQuizIndex].difficulty}
+          </h3>
 
           {translateQuizzArr[currentQuizIndex].all_answers.map((answer, index) => (
 
