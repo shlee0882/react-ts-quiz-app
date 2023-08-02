@@ -259,8 +259,9 @@ function App() {
       }
 
 
-      {translateQuizzArr.length > 0 && currentQuizIndex <= translateQuizzArr.length - 1 ? (
+      {translateQuizzArr.length > 0 && currentQuizIndex <= translateQuizzArr.length - 1 && currentQuizIndex < 30 ? (
         <div className="w-full bg-white p-8 rounded shadow flex flex-col">
+          <h3 className="text-base mb-4 text-neutral-500">문제 : {currentQuizIndex+1} / 30</h3>
           <h3 className="text-base mb-4 text-neutral-500">주제 : {translateQuizzArr[currentQuizIndex].category}</h3>
           <h2 className="text-xl mb-4 text-zinc-700 font-extrabold">{translateQuizzArr[currentQuizIndex].question}</h2>
           <h3 className={`text-base mb-4 ${translateQuizzArr[currentQuizIndex].difficulty === '어려움' ? 'text-red-400' : translateQuizzArr[currentQuizIndex].difficulty === '중간' ? 'text-yellow-500' : 'text-green-500'}`}>
@@ -301,7 +302,7 @@ function App() {
       </div> : 
       (
         <>
-        <h2 className="text-2xl">퀴즈가 끝났습니다. <br/> 최종 점수는 {score} 점 입니다.</h2>
+        <h2 className="text-2xl">30 문제 퀴즈가 끝났습니다. <br/> 최종 점수는 {score} 점 입니다.</h2>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={handleSolveMore}>
           퀴즈 더 풀기
         </button>
