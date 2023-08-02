@@ -37,8 +37,12 @@ ReactJs, TypeScript, Tailwindcss를 사용해 만든 프로젝트이며<br>
 
 ## 배포된 Deploy URL
 
-https://shlee0882.github.io/react-ts-quiz-app/
+- https://shlee0882.github.io/react-ts-quiz-app/
 
+<br>
+
+## 블로그 포스팅
+- [Reactjs, Tailwindcss 토이 퀴즈 앱 만들기](https://shlee0882.tistory.com/298)
 <br>
 
 ## 실행 하기
