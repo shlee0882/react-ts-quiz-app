@@ -8,6 +8,7 @@ import { ENG_QUIZ_CATE9, KOR_QUIZ_CATE9, ENG_QUIZ_CATE10, KOR_QUIZ_CATE10, ENG_Q
   ,ENG_QUIZ_CATE25, KOR_QUIZ_CATE25, ENG_QUIZ_CATE26, KOR_QUIZ_CATE26, ENG_QUIZ_CATE27, KOR_QUIZ_CATE27, ENG_QUIZ_CATE28, KOR_QUIZ_CATE28
   ,ENG_QUIZ_CATE29, KOR_QUIZ_CATE29, ENG_QUIZ_CATE30, KOR_QUIZ_CATE30, ENG_QUIZ_CATE31, KOR_QUIZ_CATE31, ENG_QUIZ_CATE32, KOR_QUIZ_CATE32
 } from './quizData'; 
+import AdsComponent from './AdsComponent';
 
 function App() {
   const [translateQuizzArr, setTranslateQuizzArr] = useState<Quiz[]>([]);
@@ -241,6 +242,7 @@ function App() {
 
   return (
     <div className="App bg-blue-50 min-h-screen flex flex-col items-center justify-center font-nanum-gothic font-bold">
+      <AdsComponent dataAdSlot='3316845434' />
       <h1 className="text-4xl mb-4 font-bold">랜덤퀴즈 앱</h1>
       {
         isLoading ? 
@@ -296,7 +298,7 @@ function App() {
               정답은 : {translateQuizzArr[currentQuizIndex].correct_answer} 입니다.
             </div>
           )}
-        </div>
+        </div>        
       ) : isLoading ? <div>      
         <h2 className="text-2xl">랜덤 퀴즈 로딩 중입니다.</h2>
       </div> : 
@@ -309,6 +311,8 @@ function App() {
       </>
       )
     }
+    <AdsComponent dataAdSlot='3316845434' />
+
     </div>
   );
 
